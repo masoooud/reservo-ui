@@ -1,0 +1,28 @@
+<div class="flex justify-center mt-4">
+    <input type="text" (keyup)="onSearchQueryChanged($event)" placeholder="Search..."
+        class="w-full max-w-md p-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <button (click)="onSearch()"
+        class="ml-2 p-2 bg-blue-500 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+        Search
+    </button>
+</div>
+<div>
+    <div class="flex justify-end mt-4">
+        <button (click)="isGridView = !isGridView" class="p-2 bg-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+            {{ isGridView ? 'Switch to List View' : 'Switch to Grid View' }}
+        </button>
+    </div>
+    <ul *ngIf="searchQuery.length > 0 && !isGridView" class="mt-4">
+        <li *ngFor="let product of searchResults" class="p-2 rounded-md">
+            <product [product]="product"></product>
+        </li>
+    </ul>
+    <div *ngIf="searchQuery.length > 0 && isGridView" class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div *ngFor="let product of searchResults" class="p-2 rounded-md">
+            <product [product]="product"></product>
+        </div>
+    </div>
+    <!-- <div *ngIf="searchQuery.length < 1" class="mt-4">
+        No results found
+    </div> -->
+</div>
