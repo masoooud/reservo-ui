@@ -1,28 +1,38 @@
-<div class="flex justify-center mt-4">
-    <input type="text" (keyup)="onSearchQueryChanged($event)" placeholder="Search..."
-        class="w-full max-w-md p-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-    <button (click)="onSearch()"
-        class="ml-2 p-2 bg-blue-500 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-        Search
-    </button>
-</div>
-<div>
+<div class="rounded-md bg-gray-50 p-8">
+    <app-navigator/>
+    <div class="flex justify-center mt-32">
+        <input type="text" (keyup)="onSearchQueryChanged($event)" placeholder="Search..."
+            class="w-full max-w-md p-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button (click)="onSearch()"
+            class="ml-2 py-2 px-4 bg-blue-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-700">
+            Search
+        </button>
+    </div>
     <div class="flex justify-end mt-4">
-        <button (click)="isGridView = !isGridView" class="p-2 bg-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button (click)="changeView()"
+            class="py-2 px-4 bg-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 hover:bg-gray-500 hover:text-white">
             {{ isGridView ? 'Switch to List View' : 'Switch to Grid View' }}
         </button>
     </div>
-    <ul *ngIf="searchQuery.length > 0 && !isGridView" class="mt-4">
-        <li *ngFor="let product of searchResults" class="p-2 rounded-md">
+    <ul *ngIf="searchResults.length > 0 && !isGridView" class="mt-4">
+        @for (product of searchResults; track $index) {
+        <li class="p-2 rounded-md">
             <product [product]="product"></product>
         </li>
+        }
     </ul>
-    <div *ngIf="searchQuery.length > 0 && isGridView" class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <div *ngFor="let product of searchResults" class="p-2 rounded-md">
-            <product [product]="product"></product>
+    @if (searchResults.length > 0 && isGridView) {
+    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        @for (product of searchResults; track $index) {
+        <div class="p-2 rounded-md">
+            <product [product]="product" [isGridView]="isGridView"/>
         </div>
+        }
     </div>
-    <!-- <div *ngIf="searchQuery.length < 1" class="mt-4">
-        No results found
-    </div> -->
+    }
+    @if (searchResults.length == 0) {
+        <div class="mt-4 justify-center text-center">
+            No results found
+        </div>
+    }
 </div>

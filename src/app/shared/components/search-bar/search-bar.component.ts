@@ -2,14 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Product } from '../../types/product.interface';
 import { ProductComponent } from '../product/product.component';
+import { AppNavigatorComponent } from '../../../core/components/app-navigator/app-navigator.component';
 
 @Component({
   selector: 'app-search-bar',
-  imports: [CommonModule, ProductComponent],
+  imports: [CommonModule, ProductComponent, AppNavigatorComponent],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.scss'
 })
 export class SearchBarComponent {
+
   searchQuery: string = '';
   searchResults: Product[] = [];
   isGridView: boolean = true;
@@ -31,5 +33,9 @@ export class SearchBarComponent {
       newSearchResults.push(product);
     }
     this.searchResults = newSearchResults;
+  }
+
+  changeView() {
+    this.isGridView = !this.isGridView
   }
 }

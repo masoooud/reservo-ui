@@ -8,6 +8,7 @@ import { Product } from '../../types/product.interface';
   styleUrl: './product.component.scss'
 })
 export class ProductComponent {
+  @Input() isGridView: boolean = true;
   @Input() product: Product = {
     id: 0,
     name: "",

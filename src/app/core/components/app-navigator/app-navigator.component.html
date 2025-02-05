@@ -1,0 +1,14 @@
+<div class="fixed flex p-2 m-2 top-20 transform -translate-y-1/2 bg-gray-800 text-white rounded-lg shadow-lg">
+    <div class="w-16 flex m-2">
+        <img class="w-50 rounded-full " src="https://placehold.co/50?text=logo" alt="logo">
+    </div>
+    <div class="flex flex-wrap m-2 content-center">
+    @for (route of routes; track $index) {
+    <button class="flex content-center m-2" (click)="go(route.link)">
+        <img src="https://api.iconify.design/noto/{{ route.icon }}.svg?color=white&height=24"
+                    alt="{{ route.label }}" class="inline-block"/>
+        <span class="flex ml-2">{{ route.label }}</span>
+    </button>
+    }
+    </div>
+</div>
